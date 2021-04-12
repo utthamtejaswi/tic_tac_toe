@@ -1,7 +1,9 @@
 import pygame  
 import stats_tick
+import pygame.font
 
-pygame.init()  
+pygame.init()
+font = pygame.font.Font(None, 36)
 screen = pygame.display.set_mode((600,600))  
 done = False
 count=0
@@ -72,5 +74,9 @@ while not done:
                         obj2.make_move(you_are,box_num)
                         if(obj2.check_game_over()):
                                 print(you_are+" wins")
+                                text = font.render(you_are+" wins", 1, (255, 255, 255))
+                                text_box = text.get_rect(centerx=screen.get_width()/2)
+                                screen.blit(text, text_box)
         pygame.display.flip()
+        
 
