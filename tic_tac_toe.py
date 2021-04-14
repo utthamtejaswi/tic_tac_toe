@@ -57,7 +57,7 @@ while not done:
                                 count=0
                                 obj2.clear_all()
                                 
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN and (not obj2.check_game_over()):
                         pos =list(pygame.mouse.get_pos())
                         pos1=75
                         column=obj1.return_column(pos)
