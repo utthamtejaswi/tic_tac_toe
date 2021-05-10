@@ -8,6 +8,7 @@ screen = pygame.display.set_mode((600,600))
 pygame.display.set_caption("tic_tac_toe")
 done = False
 count=0
+temp=[]
 class stats():
         def __init__(self):
                 self.index_dict={(0,0):(100,100), (0,1):(300,100), (0,2):(500,100),
@@ -55,6 +56,7 @@ while not done:
                         if event.key == pygame.K_r:
                                 screen.fill((0,0,0))
                                 count=0
+                                temp=[]
                                 obj2.clear_all()
                                 
                 if event.type == pygame.MOUSEBUTTONDOWN and (not obj2.check_game_over()):
@@ -64,19 +66,21 @@ while not done:
                         row=obj1.return_row(pos)
                         box=obj1.index_dict[(row,column)]
                         box_num=obj1.box_dict[(row,column)]
-                        if (count%2==0):
+                        if (count%2==0) and (box_num not in temp):
                                 you_are="o"
                                 pygame.draw.circle(screen,(255,255,255),(box[0],box[1]),pos1,5)
-                        else:
+                                temp.append(box_num)
+                                count+=1
+                        if(count%2!=0) and (box_num not in temp):
                                 you_are="x"
                                 pygame.draw.line(screen,(255,255,255),(box[0]-pos1,box[1]-pos1),(box[0]+pos1,box[1]+pos1),5)
                                 pygame.draw.line(screen,(255,255,255),(box[0]-pos1,box[1]+pos1),(box[0]+pos1,box[1]-pos1),5)
-                        count+=1
+                                temp.append(box_num)
+                                count+=1
                         obj2.make_move(you_are,box_num)
                         if(obj2.check_game_over()):
                                 text = font.render(you_are+" wins", 1, (255, 255, 255))
                                 text_box = text.get_rect(centerx=screen.get_width()/2)
                                 screen.blit(text, text_box)
         pygame.display.flip()
-        
 
